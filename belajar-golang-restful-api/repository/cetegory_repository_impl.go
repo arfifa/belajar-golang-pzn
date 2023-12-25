@@ -9,7 +9,10 @@ import (
 )
 
 type CategoryRepositoryImpl struct{
+}
 
+func NewCategoryRepository() CategoryRepository {
+	return &CategoryRepositoryImpl{}
 }
 
 func (repository *CategoryRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
@@ -33,7 +36,7 @@ func (repository *CategoryRepositoryImpl) Update(ctx context.Context, tx *sql.Tx
 }
 
 func (repository *CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category domain.Category) {
-	SQL := "delete form category where id = ?"
+	SQL := "delete from category where id = ?"
 	_, err := tx.ExecContext(ctx, SQL, category.Id)
 	helper.PanicIfError(err)
 }
